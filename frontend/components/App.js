@@ -93,7 +93,7 @@ export default function App() {
     setSpinnerOn(true);
     axiosWithAuth().post(articlesUrl, article)
     .then(res => {
-      setArticles(res.data.articles)
+      setArticles([...articles, res.data.article])
       setMessage(res.data.message)
       setSpinnerOn(false)
     })
