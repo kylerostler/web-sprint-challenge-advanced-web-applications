@@ -126,12 +126,12 @@ export default function App() {
     })
   }
 
-
   const deleteArticle = article_id => {
     // ✨ implement
 
     setMessage('');
     setSpinnerOn(true);
+
     axiosWithAuth().delete(`${articlesUrl}/${article_id}`)
     .then(res => {
       setArticles(articles.filter((art) => {
