@@ -52,8 +52,8 @@ export default function App() {
       redirectToArticles()
     })
     .catch((err) => {
-      debugger
       redirectToLogin()
+      debugger
     })
   }
 
