@@ -42,19 +42,18 @@ export default function App() {
     // put the server success message in its proper state, and redirect
     // to the Articles screen. Don't forget to turn off the spinner!
 
-    // setMessage('');
-    // setSpinnerOn(true);
+    setMessage('');
+    setSpinnerOn(true);
     axiosWithAuth().post(loginUrl, { username, password })
     .then((res) => {
-      // window.localStorage.setItem('token', res.data.token)
-      // setMessage(res.data.message)
-      // setSpinnerOn(false)
-      // redirectToArticles()
-      console.log(res)
+      window.localStorage.setItem('token', res.data.token)
+      setMessage(res.data.message)
+      setSpinnerOn(false)
+      redirectToArticles()
     })
     .catch((err) => {
       debugger
-      // redirectToLogin()
+      redirectToLogin()
     })
   }
 
@@ -91,19 +90,59 @@ export default function App() {
     // You'll know what to do! Use log statements or breakpoints
     // to inspect the response from the server.
 
-    setMessage('');
-    setSpinnerOn(true);
-    axiosWithAuth().post(articlesUrl)
-
+    // setMessage('');
+    // setSpinnerOn(true);
+    axiosWithAuth().post(articlesUrl, article)
+    .then(res => {
+      // setArticles(res.data.articles)
+      // setMessage(res.data.message)
+      // setSpinnerOn(false)
+      console.log(res)
+    })
+    .catch(err => {
+      // if(err.response.status == 401) {
+      //   navigate("/")
+      // }
+      debugger
+    })
   }
 
   const updateArticle = ({ article_id, article }) => {
     // ✨ implement
     // You got this!
+
+    // setSpinnerOn(true);
+    // setMessage('');
+    axiosWithAuth().put(`${articlesUrl}/${article_id}`, article)
+    .then(res => {
+      // setArticles(articles.map(art => {
+      //   return (art.id == article_id) ? res.data.article : art
+      // }))
+      // setCurrentArticleId()
+      // setSpinnerOn(false)
+      // setMessage(res.data.message)
+      console.log(res)
+    })
+    .catch(err => {
+      debugger
+    })
   }
 
   const deleteArticle = article_id => {
     // ✨ implement
+
+    // setMessage('');
+    // setSpinnerOn(true);
+    axiosWithAuth().delete(`${articlesUrl}/${article_id}`)
+    .then(res => {
+      // setArticles(articles.filter((art) => {
+      //   return art.id != article_id
+      // }))
+      console.log(res)
+    })
+    .catch(err => {
+      debugger
+    })
   }
 
   return (
@@ -122,8 +161,17 @@ export default function App() {
           <Route path="/" element={<LoginForm login={login}/>} />
           <Route path="articles" element={
             <>
-              <ArticleForm currentArticle={  }/>
-              <Articles /*all the functions and articles*/ />
+              <ArticleForm 
+              postArticle={postArticle} 
+              updateArticle={updateArticle} 
+              setCurrentArticleId={setCurrentArticleId} 
+              currentArticle={articles.find((art) => {return art.id === currentArticleId })} />
+
+              <Articles 
+              articles={articles} 
+              getArticles={getArticles} 
+              deleteArticle={deleteArticle} 
+              setCurrentArticleId={setCurrentArticleId} />
             </>
           } />
         </Routes>
