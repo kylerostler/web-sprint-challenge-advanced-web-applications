@@ -9,6 +9,7 @@ test('sanity', () => {
   expect(true).toBe(true)
 })
 
+
 test('check that spinner renders with props', async () => {
   const spinnerTrue = true
   render(<Spinner on={spinnerTrue}/>)
@@ -17,6 +18,7 @@ test('check that spinner renders with props', async () => {
     expect(spinnerText).toBeInTheDocument()
   })
 })
+
 
 test('check that spinner renders with props', async () => {
   const spinnerFalse = false
