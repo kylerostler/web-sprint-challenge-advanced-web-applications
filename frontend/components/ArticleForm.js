@@ -31,7 +31,7 @@ export default function ArticleForm(props) {
     // We must submit a new post or update an existing one,
     // depending on the truthyness of the `currentArticle` prop.
     if (currentArticle) {
-      updateArticle(currentArticle.id, values)
+      updateArticle(currentArticle.article_id, values )
     }else {
       postArticle(values)
     }
@@ -47,9 +47,15 @@ export default function ArticleForm(props) {
     }
   }
 
+  const cancel = () => {
+    setValues(initialFormValues)
+    setCurrentArticleId(null)
+  }
+
   return (
     // ✨ fix the JSX: make the heading display either "Edit" or "Create"
     // and replace Function.prototype with the correct function
+    <>
     <form id="form" onSubmit={onSubmit}>
       <h2>Create Article</h2>
       <input
@@ -74,9 +80,10 @@ export default function ArticleForm(props) {
       </select>
       <div className="button-group">
         <button disabled={isDisabled()} id="submitArticle">Submit</button>
-        <button onClick={evt => {setValues(initialFormValues)}}>Cancel edit</button>
       </div>
     </form>
+    <button onClick={() => {cancel()}}>Cancel edit</button>
+    </>
   )
 }
 
