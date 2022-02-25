@@ -67,19 +67,18 @@ export default function App() {
     // if it's a 401 the token might have gone bad, and we should redirect to login.
     // Don't forget to turn off the spinner!
 
-    // setMessage('');
-    // setSpinnerOn(true);
+    setMessage('');
+    setSpinnerOn(true);
     axiosWithAuth().get(articlesUrl)
     .then(res => {
-      // setArticles(res.data.articles)
-      // setMessage(res.data.message)
-      // setSpinnerOn(false)
-      console.log(res)
+      setArticles(res.data.articles)
+      setMessage(res.data.message)
+      setSpinnerOn(false)
     })
     .catch(err => {
-      // if(err.response.status == 401) {
-      //   navigate("/")
-      // }
+      if(err.response.status == 401) {
+        navigate("/")
+      }
       debugger
     })
   }
@@ -90,19 +89,18 @@ export default function App() {
     // You'll know what to do! Use log statements or breakpoints
     // to inspect the response from the server.
 
-    // setMessage('');
-    // setSpinnerOn(true);
+    setMessage('');
+    setSpinnerOn(true);
     axiosWithAuth().post(articlesUrl, article)
     .then(res => {
-      // setArticles(res.data.articles)
-      // setMessage(res.data.message)
-      // setSpinnerOn(false)
-      console.log(res)
+      setArticles(res.data.articles)
+      setMessage(res.data.message)
+      setSpinnerOn(false)
     })
     .catch(err => {
-      // if(err.response.status == 401) {
-      //   navigate("/")
-      // }
+      if(err.response.status == 401) {
+        navigate("/")
+      }
       debugger
     })
   }
@@ -111,17 +109,16 @@ export default function App() {
     // ✨ implement
     // You got this!
 
-    // setSpinnerOn(true);
-    // setMessage('');
-    axiosWithAuth().put(`${articlesUrl}/${article_id}`, article)
+    setSpinnerOn(true);
+    setMessage('');
+    axiosWithAuth().put(`${articlesUrl}/:${article_id}`, article)
     .then(res => {
-      // setArticles(articles.map(art => {
-      //   return (art.id == article_id) ? res.data.article : art
-      // }))
-      // setCurrentArticleId()
-      // setSpinnerOn(false)
-      // setMessage(res.data.message)
-      console.log(res)
+      setArticles(articles.map(art => {
+        return (art.id == article_id) ? res.data.article : art
+      }))
+      setCurrentArticleId()
+      setSpinnerOn(false)
+      setMessage(res.data.message)
     })
     .catch(err => {
       debugger
@@ -131,14 +128,13 @@ export default function App() {
   const deleteArticle = article_id => {
     // ✨ implement
 
-    // setMessage('');
-    // setSpinnerOn(true);
+    setMessage('');
+    setSpinnerOn(true);
     axiosWithAuth().delete(`${articlesUrl}/${article_id}`)
     .then(res => {
-      // setArticles(articles.filter((art) => {
-      //   return art.id != article_id
-      // }))
-      console.log(res)
+      setArticles(articles.filter((art) => {
+        return art.id != article_id
+      }))
     })
     .catch(err => {
       debugger
@@ -165,13 +161,14 @@ export default function App() {
               postArticle={postArticle} 
               updateArticle={updateArticle} 
               setCurrentArticleId={setCurrentArticleId} 
-              currentArticle={articles.find((art) => {return art.id === currentArticleId })} />
+              currentArticle={articles.find((art) => { return art.id === currentArticleId })} />
 
               <Articles 
               articles={articles} 
               getArticles={getArticles} 
               deleteArticle={deleteArticle} 
-              setCurrentArticleId={setCurrentArticleId} />
+              setCurrentArticleId={setCurrentArticleId}
+              currentArticleId={currentArticleId} />
             </>
           } />
         </Routes>
