@@ -137,6 +137,7 @@ export default function App() {
       setArticles(articles.filter((art) => {
         return art.article_id != article_id;
       }))
+      setSpinnerOn(false)
       setMessage(res.data.message)
     })
     .catch(err => {
