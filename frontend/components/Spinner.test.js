@@ -1,7 +1,7 @@
 // Import the Spinner component into this file and test
 // that it renders what it should for the different props it can take.
 import React from 'react'
-import { render, fireEvent, screen, waitFor } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
 import '@testing-library/jest-dom'
 import Spinner from './Spinner'
 
@@ -23,6 +23,6 @@ test('check that spinner renders with props', async () => {
   render(<Spinner on={spinnerFalse}/>)
   const spinnerText = screen.queryByText(/please wait.../i)
   await waitFor(() => {
-    expect(spinnerText).not.toBeInTheDocument()
+    expect(spinnerText).toBeNull()
   })
 })
