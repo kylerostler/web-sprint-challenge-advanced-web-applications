@@ -111,6 +111,7 @@ export default function App() {
 
     setSpinnerOn(true);
     setMessage('');
+
     axiosWithAuth().put(`${articlesUrl}/${article_id}`, article)
     .then(res => {
       setArticles(articles.map(art => {
@@ -134,8 +135,9 @@ export default function App() {
     axiosWithAuth().delete(`${articlesUrl}/${article_id}`)
     .then(res => {
       setArticles(articles.filter((art) => {
-        return art.article_id != article_id
+        return art.article_id != article_id;
       }))
+      setMessage(res.data.message)
     })
     .catch(err => {
       debugger

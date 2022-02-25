@@ -35,6 +35,7 @@ export default function ArticleForm(props) {
     }else {
       postArticle(values)
     }
+    setValues(initialFormValues)
   }
 
   const isDisabled = () => {
